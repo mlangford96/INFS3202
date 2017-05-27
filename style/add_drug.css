@@ -1,0 +1,68 @@
+html, body {
+    padding: 0px;
+    margin: 0px;
+}
+
+div.top_pane {
+    width: 100%;
+    height: 250px;
+    padding: 0px;  
+    padding-top: 50px;
+    background: #065687;
+}
+
+h1.heading {
+    text-align: center;
+    padding: 0px;
+    height: 100px;
+    color: white;
+    font-family: "Calibri";
+    font-size: 46pt;
+}
+
+
+div.addition_pane {
+    width: 90%;
+    font-family: "Calibri";
+    font-size: 12pt;
+    margin: 50px auto 0px auto;
+    text-align: center;
+}
+
+.login_heading {
+    width = 120px;
+}
+
+form.login_form {
+    width: 100%;
+    margin: 0;
+}
+
+h2.login_heading {
+    color: #065687;
+    margin: auto;
+    width: 200px;
+} 
+
+.addition_pane input {
+    width: 120px;
+    height: 30px;
+    font-size: 12pt;
+} 
+
+.addition_pane .submit {
+    margin: auto;
+    width: 150px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background: #065687;
+}
+
+.login p {
+    color: red;
+}
+
+.login a {
+    font-size: 16pt;
+    color: #AFAFAF;
+}
