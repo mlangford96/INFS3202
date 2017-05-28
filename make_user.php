@@ -1,6 +1,3 @@
-<!DOCTYPE HTML>
-    <HEAD>
-        <title>Search</title>
          <?php
             session_start();
             $email = $_POST['email'];
@@ -22,7 +19,7 @@
                     //rest matching password flag
                     if (isset ($_SESSION['match_pass_error'])) {
                         unset ($_SESSION['match_pass_error']);
-                    }                 
+                    }                  
                 }
             } else {
                 //redirect for empty password
@@ -43,14 +40,24 @@
             }
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $db_selected = mysql_select_db("MilkBank", $connection) or die ("error");
+            $result = mysql_query("SELECT COUNT(*) AS total FROM USERS WHERE USERNAME='$username'");
+            $row = mysql_fetch_array($result);
 
-            mysql_query("INSERT INTO USERS VALUES('$username', '$hashed_password', '$email', '1')");
+            $result = mysql_query("SELECT COUNT(*) AS total FROM USERS_APPROVAL WHERE USERNAME='$username'");
+            $row2 = mysql_fetch_array($result);
+
+            if ($row['0'] != 0 || $row2['0'] != 0) {
+                $_SESSION['user_in_use_error'] = 1;
+                header('Location: https://infs3202-gzhlr.uqcloud.net/INFS3202/create_account.php');
+                
+            } else {
+                if(isset($_SESSION['user_in_use_error'])) {
+                    unset ($_SESSION['user_in_use_error']);
+                }
+            }          
+  
+            mysql_query("INSERT INTO USERS_APPROVAL VALUES('$username', '$hashed_password', '$email', '1')");
             $_SESSION['hashpass'] = $hashed_password;
-            header('Location: https://infs3202-gzhlr.uqcloud.net/'); //will be changed to email conf
+            header('Location: https://infs3202-gzhlr.uqcloud.net/');
         ?>
-        <link rel = "stylesheet" type = "text/css" href = "style/results.css">
-
-    </HEAD>
-
- </HTML>
 

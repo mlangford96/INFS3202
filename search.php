@@ -41,14 +41,29 @@
             <h1 class="heading"> RBWH Milk Bank <br> Drug Guide </h1>
         </div>
 
+        <div class = "tools_pane">
+            <h2>Tools</h2>
+            <ul>
+                <li><a href="add_drug.php">Add a Medication</a></li>
+                <?php if ($_SESSION['username'] == "mlangford") {
+                           echo "<li><a href=\"drug_approvak.php\">Drug Approval</a></li>";
+                           echo "<li><a href=\"user_approval.php\">User Approval</a></li>";
+                      }
+                ?>
+            </ul>
+        </div>        
+
         <div class = "search_pane">
             <form action = "results.php" method = "POST">
-                <input class = "search_in" type = "text" name = "input_text" 
+                <input id = "main_search" class = "search_in" type = "text" 
+                        name = "input_text" onkeyup="showResult(this.value)"
                         placeholder = "Enter keywords">
                 <div id="livesearch"></div>
                 <input class = "submit" type = "submit" value = "Search">
             </form>
         </div>
+
+    <script src = "js/live_search.js" type = "application/javascript"> </script> 
     </BODY>   
 </HTML>
 

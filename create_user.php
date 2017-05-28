@@ -12,7 +12,7 @@
 
         <div class = "creation_pane">
             <h2>Create an Account</h2>
-            <form action = "make_user.php" method = "POST">
+            <form action = "/INFS3202/make_user.php" method = "POST">
                 <input type = "email" name = "email" 
                         placeholder = "example@rbwh.qld.gov.au">
                 <input type = "text" name = "username"

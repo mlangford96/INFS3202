@@ -19,14 +19,6 @@
             <h1 class="heading"> RBWH Milk Bank <br> Drug Guide </h1>
         </div>
  
-        <div class = "search_pane">
-            <form action = "/INFS3202/search.php" method = "POST">
-                <input id = main_search class = "search_in" type="text" name="input_text" 
-                        placeholder = "Enter Keywords" onkeyup="showResult(this.value)">
-                <div id="livesearch"></div>
-                <input class = "submit" type="submit" value = "Search">
-            </form>
-        </div>
         <?php
            $username = $_SESSION['username'];           
             $password = $_SESSION['password'];
@@ -43,36 +35,28 @@
                 $_SESSION['bad_password'] = 1;
                 header('Location: https://infs3202-gzhlr.uqcloud.net/');
             }            
-            
-            $input_text = $_POST['input_text'];
-            $tokens = explode(' ', $input_text);
-            $output_text = implode("|", $tokens);
+            if ($_SESSION['username'] != "mlangford") {
+                 header('Location: https://infs3202-gzhlr.uqcloud.net/'); 
+            }
             $numResults = 0;           
-            $result = mysql_query("SELECT * FROM Medication WHERE NAME REGEXP '$output_text' OR INGREDIENTS REGEXP '$output_text'");
+            $result = mysql_query("SELECT * FROM USERS_APPROVAL");
             echo "<div class = \"result_pane\">";
                 echo "<table class = \"results\"> <tr>";
-                    echo "<th>Name</th> <th>Dosage (mg)</th> <th>Half Life (hrs)</th>";
-                            echo "<th>Stand Down (hrs)</th> <th>Ingredioents</th> <th>Approval</th></tr>";
+                    echo "<th>Name</th> <th>Email</th> </tr>";
              
                     while ($row = mysql_fetch_array($result)) {
                         echo "<tr> <td>".$row['0']."</td>";
-                        echo "<td>".$row['1']."</td>";
                         echo "<td>".$row['2']."</td>";               
-                        echo "<td>".$row['3']."</td>";
-                        echo "<td>".$row['4']."</td>";
-                        echo "<td>".$row['5']."</td>"; 
-                        echo "<td> <input type = \"checkbox\" name = \"drug$numResults\" value =".$row['0']." form = \"approval\" />  </tr>";
+                        echo "<td> <input type = \"checkbox\" name = \"user$numResults\" value =".$row['0']." form = \"approval\" /> </td> </tr>";
                         $numResults++;          
                     }           
             echo "</table>";
-            echo "<form action = \"approval.php\" method = \"POST\" id = \"approval\">"; 
-            echo "<input class = \"submit\" type = \"submit\" value = \"submit for approval\" form = \"approval\" />"; 
+            echo "<form action = \"approve_user.php\" method = \"POST\" id = \"approval\">"; 
+            echo "<input class = \"submit\" type = \"submit\" value = \"Approve\" form = \"approval\" />"; 
             echo "</form>";
 
             echo "</div>";
                 ?>
-       
-	<script src = "js/live_search.js" type = "application/javascript"> </script>
     </BODY>   
 </HTML>
 

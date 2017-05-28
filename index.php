@@ -13,9 +13,9 @@
         <div class = "login">
            <h2 class = "login_heading">Login</h2>
            <br>
-           <a href="create_user.php" target="_blank">Forgot your password or don't have an account?</a>
+           <a href="create_user.php">Forgot your password or don't have an account?</a>
            <br>
-           <form class = "login_form" action = "search.php" method = "POST">
+           <form class = "login_form" action = "/INFS3202/search.php" method = "POST">
                 <input class = "username" type = "text" 
                         name = "username" placeholder = "username">
                 <br>
