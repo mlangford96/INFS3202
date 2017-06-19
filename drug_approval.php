@@ -4,7 +4,7 @@
         <link rel = "stylesheet" type = "text/css" href = "style/common.css">
         <link rel = "stylesheet" type = "text/css" href = "style/search.css">
         <link rel = "stylesheet" type = "text/css" href = "style/extras.css">
- 
+     
         <?php session_start();
             require "backend/common.php";
             $loggedIn = check_login($_SESSION['username'], $_SESSION['password']);
@@ -14,7 +14,7 @@
         <script>
         $(document).ready(function(){
         $("#top_pane").fadeIn();
-        $("#search_pane").fadeIn();
+        $("#drug_pane").fadeIn();
         $("#tools_pane").fadeIn();
         });
         </script>
@@ -24,6 +24,7 @@
         <div class = "top_pane" id = "top_pane">
             <h1 class="heading"> RBWH Milk Bank <br> Drug Guide </h1>
         </div>
+
         <div class = "tools_pane" id = "tools_pane">
             <h2>Tools</h2>
             <ul>
@@ -36,31 +37,33 @@
                 ?>
                 <li><a href="backend/logout.php">Logout</a></li>
             </ul>
-        </div>    
+        </div>   
         <?php
            if ($_SESSION['username'] != "admin") {
-                 header('Location: https://infs3202-gzhlr.uqcloud.net/'); 
+                 header('Location: https://infs3202-gzhlr.uqcloud.net/');
             }
-            $stmnt = $conn->prepare("SELECT * FROM USERS_APPROVAL");
+            $stmnt = $conn->prepare("SELECT * FROM DRUG_APPROVAL");
             $stmnt->execute(array());
         ?>
-        <div class="search_pane" id = "search_pane">
-            <table class=results" id="results_table"><tr>
-                <th>Name</th><th>Email</th><th>Approve?</th></tr>
+        <div class="search_pane" id = "drug_pane">
+            <table class=results" id = "results_table"><tr>
+                <th>Name</th> <th>Dosage</th>  <th>Half Life</th> <th>Stand Down</th> <th>Ingredients</th><th>Approve?</th></tr>
         <?php
             $numResults = 0;
             while ($row = $stmnt->fetch(PDO::FETCH_NUM)) {
                 echo "<tr> <td>".$row['0']."</td>";
-                echo "<td>".$row['2']."</td>";               
+                echo "<td>".$row['1']."</td>";
+                echo "<td>".$row['2']."</td>";
+                echo "<td>".$row['3']."</td>";               
+                echo "<td>".$row['4']."</td>";               
                 echo "<td> <input id=\"check\" type = \"checkbox\" name = \"user$numResults\" value =".$row['0']." form = \"approval\" /> </td> </tr>";
                 $numResults++;
             }
-        ?>           
+        ?>
            </table>
-           <form action="backend/approve_user.php" method="POST" id="approval"> 
+           <form action="backend/approve_drug.php" method="POST" id="approval">
                <input class="submit" type="submit" value="Approve" form ="approval"/>
            </form>
        </div>
-    </BODY>   
+    </BODY>
 </HTML>
-

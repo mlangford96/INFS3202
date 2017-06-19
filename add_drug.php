@@ -1,42 +1,45 @@
 <!DOCTYPE HTML>
     <HEAD>   
-    <title>Search</title>
-        <link rel = "stylesheet" type = "text/css" href = "style/add_drug.css">
-        <?php session_start() ?>
+    <title>Add</title>
+        <link rel = "stylesheet" type = "text/css" href = "style/common.css">
+        <link rel = "stylesheet" type = "text/css" href = "style/extras.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+         <script>
+        $(document).ready(function(){
+        $("#top_pane").fadeIn();
+        $("#addition").fadeIn();
+        $("#tools_pane").fadeIn();
+        });
+        </script>
+        <?php
+            session_start();
+            require "backend/common.php";
+            $loggedIn = check_login($_SESSION['username'], $_SESSION['password']);
+        ?>
+
     </HEAD>
 
     <BODY>
-        <div class = "top_pane">
+        <div class = "top_pane" id = "top_pane">
             <h1 class="heading"> RBWH Milk Bank <br> Drug Guide </h1>
         </div>
 
-        <?php
-            $connection = mysql_connect("localhost", 'MLangford', 'Redline66') or die('error');
-            $db_selected = mysql_select_db("MilkBank", $connection) or die ("error");
+        <div class = "tools_pane" id = "tools_pane">
+            <h2>Tools</h2>
+            <ul>
+                <li><a href="search.php">Search</a></li> 
+                <li><a href="add_drug.php">Add a Medication</a></li>
+                <?php if ($_SESSION['username'] == "admin") {
+                           echo "<li><a href=\"drug_approval.php\">Drug Approval</a></li>";
+                           echo "<li><a href=\"user_approval.php\">User Approval</a></li>";
+                      }
+                ?>
+                <li><a href="backend/logout.php">Logout</a></li>
+            </ul>
+        </div>   
 
-            if (!$connection) {
-                echo "connection failed";
-                $_POST['pass_error'] = 1;
-                header('Location: https://infs3202-gzhlr.uqcloud.net/');
-            }
-            $username = $_SESSION['username'];           
-            $password = $_SESSION['password'];
-
-            $result = mysql_query("SELECT * FROM USERS WHERE USERNAME='$username'");
-            $row = mysql_fetch_array($result);
-            $hash = $row['1'];
-            if (password_verify($password, $hash)) {
-                //passwords match 
-                if (isset($_SESSION['bad_password'])) {
-                    unset($_SESSION['bad_password']);
-                } 
-            } else {
-                $_SESSION['bad_password'] = 1;
-                header('Location: https://infs3202-gzhlr.uqcloud.net/');
-            }            
-        ?>
-        <div class = "addition_pane">
-            <form class = "add_drug_form" action = "drug_creation.php" method = "POST">
+        <div class = "addition_pane" id = "addition_pane">
+            <form class = "add_drug_form" action = "backend/drug_creation.php" method = "POST">
                 <input class = "Name" type = "text" 
                         name = "drugName" placeholder = "Drug Name">
 

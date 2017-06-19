@@ -1,18 +1,32 @@
 <!DOCTYPE HTML>
     <HEAD>
-        <title>Search</title>
-        <link rel = "stylesheet" type = "text/css" href = "style/create_user.css">
-
+        <title>Create</title>
+         <link rel = "stylesheet" type = "text/css" href = "style/common.css">
+         <link rel = "stylesheet" type = "text/css" href = "style/extras.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+        $("#top_pane").fadeIn();
+        $("#search_pane").fadeIn();
+        $("#tools_pane").fadeIn();
+        });
+        </script>
     </HEAD>
 
     <BODY>
-        <div class = "top_pane">
+        <div class = "top_pane" id = "top_pane">
             <h1 class="heading"> RBWH Milk Bank <br> Drug Guide </h1>
         </div>
-
+        <div class = "tools_pane" id = "tools_pane">
+            <h2>Tools</h2>
+            <ul>
+                <li><a href="index.php">Back</a></li> 
+            </ul>
+        </div>        
+ 
         <div class = "creation_pane">
             <h2>Create an Account</h2>
-            <form action = "/INFS3202/make_user.php" method = "POST">
+            <form action = "backend/make_user.php" method = "POST">
                 <input type = "email" name = "email" 
                         placeholder = "example@rbwh.qld.gov.au">
                 <input type = "text" name = "username"
@@ -34,7 +48,7 @@
                 <br>
                 <input class = "submit" type = "submit" value = "SUBMIT">
             </form>
-        </div>
+        </div> 
     </BODY>   
 </HTML>
 
